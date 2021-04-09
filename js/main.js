@@ -52,10 +52,10 @@ function createScene() {
     let freeCamera = createFreeCamera(scene);
 
     let tank = createTank(scene);
-    let tankCanon = createTankCanon(scene);
+    let ball = createBall(scene);
 
     // second parameter is the target to follow
-    let followCamera = createFollowCamera(scene, tankCanon);
+    let followCamera = createFollowCamera(scene, ball);
     scene.activeCamera = followCamera;
 
     createLights(scene);
@@ -205,7 +205,7 @@ function createBall(scene) {
 
         let yMovement = 0;
        
-        if (tankCanon.position.y > 2) {
+        if (ball.position.y > 2) {
             zMovement = 0;
             yMovement = -2;
         } 
@@ -214,31 +214,31 @@ function createBall(scene) {
         if(inputStates.up) {
             //tank.moveWithCollisions(new BABYLON.Vector3(0, 0, 1*tank.speed));
             ball.moveWithCollisions(ball.frontVector.multiplyByFloats(ball.speed, ball.speed, ball.speed));
-            tankCanonMaterial.emissiveColor = new BABYLON.Color3.Yellow;
+            ballMaterial.emissiveColor = new BABYLON.Color3.Yellow;
         }    
         if(inputStates.down) {
             //tank.moveWithCollisions(new BABYLON.Vector3(0, 0, -1*tank.speed));
-            ball.moveWithCollisions(tankCanon.frontVector.multiplyByFloats(-ball.speed, -ball.speed, -ball.speed));
-            tankCanonMaterial.emissiveColor = new BABYLON.Color3.Blue;
+            ball.moveWithCollisions(ball.frontVector.multiplyByFloats(-ball.speed, -ball.speed, -ball.speed));
+            ballMaterial.emissiveColor = new BABYLON.Color3.Blue;
         }    
         if(inputStates.left) {
             //tank.moveWithCollisions(new BABYLON.Vector3(-1*tank.speed, 0, 0));
             ball.rotation.y -= 0.02;
-            ball.frontVector = new BABYLON.Vector3(Math.sin(ball.rotation.y), 0, Math.cos(tankCanon.rotation.y));
-            tankCanonMaterial.emissiveColor = new BABYLON.Color3.Green;
+            ball.frontVector = new BABYLON.Vector3(Math.sin(ball.rotation.y), 0, Math.cos(ball.rotation.y));
+            ballMaterial.emissiveColor = new BABYLON.Color3.Green;
         }    
         if(inputStates.right) {
             //tank.moveWithCollisions(new BABYLON.Vector3(1*tank.speed, 0, 0));
             ball.rotation.y += 0.02;
             ball.frontVector = new BABYLON.Vector3(Math.sin(ball.rotation.y), 0, Math.cos(ball.rotation.y));
-            tankCanonMaterial.emissiveColor = new BABYLON.Color3.Red;
+            ballMaterial.emissiveColor = new BABYLON.Color3.Red;
         } else if(!(inputStates.up || inputStates.down || inputStates.left || inputStates.right)) {
-            tankCanonMaterial.emissiveColor = new BABYLON.Color3.Black;
+            ballMaterial.emissiveColor = new BABYLON.Color3.Black;
         }
 
     }
 
-    return tankCanon;
+    return ball;
 }
 
 function createHeroDude(scene) {
